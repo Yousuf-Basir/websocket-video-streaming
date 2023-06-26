@@ -4,7 +4,9 @@
 const socketServerUrl = 'wss://143.110.246.24:8123';
 // const socketServerUrl = 'ws://localhost:8123';
 // Initialize WebSocket connection
-const socket = new WebSocket(socketServerUrl);
+const socket = new WebSocket(socketServerUrl, {
+  rejectUnauthorized: false
+});
 socket.binaryType = 'arraybuffer';
 const notConnectedMessage = document.getElementById('not_connected_message');
 
