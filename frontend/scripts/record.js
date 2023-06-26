@@ -1,8 +1,5 @@
 // Broadcasting client
 
-// Initialize WebSocket connection
-// const socket = new WebSocket('ws://localhost:8123');
-
 // When WebSocket connection is established
 socket.onopen = () => {
     // Capture audio and video streams

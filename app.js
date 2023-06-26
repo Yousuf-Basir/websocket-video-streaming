@@ -5,6 +5,8 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const WebSocket = require('ws');
 const fs = require('fs');
+// load .env
+require('dotenv').config();
 
 var indexRouter = require('./routes/index');
 
@@ -18,7 +20,7 @@ app.use(express.static(path.join(__dirname, 'frontend')));
 app.use('/', indexRouter);
 
 // Create a WebSocket server
-const wss = new WebSocket.Server({ port: 8123 });
+const wss = new WebSocket.Server({ port: process.env.SOCKET_PORT });
 
 // Store connected clients
 const clients = new Set();
