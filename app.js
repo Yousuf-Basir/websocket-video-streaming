@@ -18,7 +18,7 @@ app.use(express.static(path.join(__dirname, 'frontend')));
 app.use('/', indexRouter);
 
 // Create a WebSocket server
-const wss = new WebSocket.Server({ port: 8080 });
+const wss = new WebSocket.Server({ port: 8123 });
 
 // Store connected clients
 const clients = new Set();

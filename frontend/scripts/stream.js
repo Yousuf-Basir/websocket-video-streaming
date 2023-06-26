@@ -1,7 +1,7 @@
 // Viewer client
 
 // Initialize WebSocket connection
-const socket = new WebSocket('ws://localhost:8080');
+const socket = new WebSocket('ws://localhost:8123');
 socket.binaryType = 'arraybuffer';
 const notConnectedMessage = document.getElementById('not_connected_message');
 
