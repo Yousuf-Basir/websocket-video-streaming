@@ -1,7 +1,8 @@
 // Viewer client
 
 // get socket server url from env
-const socketServerUrl = 'ws://meets.quarkshub.com:8123';
+const socketServerUrl = 'ws://143.110.246.24:8123';
+// const socketServerUrl = 'ws://localhost:8123';
 // Initialize WebSocket connection
 const socket = new WebSocket(socketServerUrl);
 socket.binaryType = 'arraybuffer';
