@@ -23,15 +23,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'frontend')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
@@ -54,12 +53,16 @@ wss.on('connection', (ws) => {
 
   // When data is received from the broadcasting client
   ws.on('message', (data) => {
+    console.log("🚀 ~ file: app.js:56 ~ ws.on ~ data:", data)
+    
     // Broadcast the received data to all connected viewers
     for (const client of clients) {
       // Skip the broadcasting client itself
-      if (client !== ws) {
-        client.send(data);
-      }
+      // if (client !== ws) {
+      //   client.send(data);
+      // }
+
+      client.send(data);
     }
   });
 

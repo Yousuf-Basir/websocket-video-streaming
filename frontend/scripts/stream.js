@@ -1,7 +1,7 @@
 // Viewer client
 
 // Initialize WebSocket connection
-const socket = new WebSocket('ws://yousuf-basir-humble-palm-tree-q7p64xgxqg934j94-3000.preview.app.github.dev/');
+const socket = new WebSocket('ws://localhost:8080');
 
 // Create a MediaSource object
 const mediaSource = new MediaSource();
@@ -13,6 +13,7 @@ mediaSource.addEventListener('sourceopen', () => {
 
   // When a chunk of data is received from the WebSocket
   socket.onmessage = (event) => {
+    console.log('got data', event.data)
     // Append the received data to the SourceBuffer
     sourceBuffer.appendBuffer(event.data);
   };
