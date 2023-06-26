@@ -30,8 +30,6 @@ wss.on('connection', (ws) => {
 
   // When data is received from the broadcasting client
   ws.on('message', (data) => {
-    console.log("🚀 ~ file: app.js:56 ~ ws.on ~ data:", data)
-    
     // Broadcast the received data to all connected viewers
     for (const client of clients) {
       // Skip the broadcasting client itself

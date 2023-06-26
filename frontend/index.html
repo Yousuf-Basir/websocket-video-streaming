@@ -1,17 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stream</title>
-</head>
-<body>
-    <h1>Stream</h1>
-    <!-- video element -->
-    <!-- <video id="video" width="640" height="480" controls></video> -->
 
-    <!-- import stram.js -->
-    <script src="./scripts/stream.js"></script>
-    <script src="./scripts/record.js"></script>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Websocket stream</title>
+  <link rel="stylesheet" href="styles/home.css">
+</head>
+
+<body>
+  <div class="videoContainer">
+    <video id="video" width="640" height="480"></video>
+
+    <div id="not_connected_message">
+      <p>waiting for other connections.</p>
+      <p>Open this website to another device and wait for 10 seconds</p>
+    </div>
+  </div>
+
+  <script src="scripts/stream.js"></script>
+  <script src="scripts/record.js"></script>
 </body>
+
 </html>

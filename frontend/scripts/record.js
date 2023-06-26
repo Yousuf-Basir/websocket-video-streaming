@@ -9,26 +9,20 @@ socket.onopen = () => {
     navigator.mediaDevices.getUserMedia({ audio: true, video: true })
         .then(stream => {
             // Create MediaRecorder to encode the media streams
-            const mediaRecorder = new MediaRecorder(stream);
-            mediaRecorder.start();
-            var chunks = [];
+            const mediaRecorder = new MediaRecorder(stream, {
+                mimeType: 'video/webm; codecs="vp8, opus"'
+            });
 
             // When data is available from the MediaRecorder
             mediaRecorder.ondataavailable = (event) => {
-                // Store the data chunk in the buffer
-                chunks.push(event.data);
+                // Send the data chunk over the WebSocket connection
+                if (event.data && event.data.size > 0) {
+                    socket.send(event.data);
+                }
             };
 
-            setInterval(() => {
-                mediaRecorder.stop();
-                // Convert the chunks into a single Blob
-                const blob = new Blob(chunks, { type: 'video/webm' });
-                // Send the Blob data over the WebSocket connection
-                console.log('sending data')
-                socket.send(blob);
-                chunks = [];
-                mediaRecorder.start();
-            }, 5000);
+            // Start recording the media streams
+            mediaRecorder.start(10000);
         })
         .catch(error => {
             console.error('Error accessing media devices:', error);

@@ -1,0 +1,14 @@
+.videoContainer {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+#not_connected_message {
+    /* font mono */
+    font-family: 'Roboto Mono', monospace;
+    text-align: center;
+}
+#video {
+    border: 1px solid #ddd;
+}
