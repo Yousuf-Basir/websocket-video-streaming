@@ -6,7 +6,7 @@ socket.onopen = () => {
     navigator.mediaDevices.getUserMedia({ audio: true, video: {
         width: { ideal: 640 },
         height: { ideal: 480 },
-        frameRate: { ideal: 15 }
+        frameRate: { ideal: 15, max: 15 }
     } })
         .then(stream => {
             // Create MediaRecorder to encode the media streams
@@ -16,6 +16,7 @@ socket.onopen = () => {
 
             // When data is available from the MediaRecorder
             mediaRecorder.ondataavailable = (event) => {
+                console.log('ondataavailable', event.data.size)
                 // Send the data chunk over the WebSocket connection
                 if (event.data && event.data.size > 0) {
                     socket.send(event.data);
@@ -23,7 +24,7 @@ socket.onopen = () => {
             };
 
             // Start recording the media streams
-            mediaRecorder.start(2000);
+            mediaRecorder.start(2000); // For every 2 seconds, call ondataavailable
         })
         .catch(error => {
             console.error('Error accessing media devices:', error);
