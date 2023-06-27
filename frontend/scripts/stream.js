@@ -26,8 +26,6 @@ mediaSource.addEventListener('sourceopen', () => {
     } else {
       console.error('MediaSource is not open.');
       mediaSource = new MediaSource();
-      sourceBuffer = mediaSource.addSourceBuffer('video/webm; codecs="vp8, opus"');
-      sourceBuffer.appendBuffer(arrayU8);
     }
   };
 
