@@ -4,7 +4,9 @@
 socket.onopen = () => {
     // Capture audio and video streams
     navigator.mediaDevices.getUserMedia({ audio: true, video: {
-        frameRate: { ideal: 15, max: 15 }
+        width: { min: 640},
+        height: { min: 480 },
+        frameRate: { ideal: 10, max: 10 }
     } })
         .then(stream => {
             // Create MediaRecorder to encode the media streams
