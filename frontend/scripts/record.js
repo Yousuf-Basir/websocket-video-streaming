@@ -24,7 +24,7 @@ socket.onopen = () => {
             };
 
             // Start recording the media streams
-            mediaRecorder.start(2000); // For every 7 seconds, call ondataavailable
+            mediaRecorder.start(2000); // For every 2 seconds, call ondataavailable
         })
         .catch(error => {
             console.error('Error accessing media devices:', error);
