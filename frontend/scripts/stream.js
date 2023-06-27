@@ -14,7 +14,7 @@ var mediaSource = new MediaSource();
 // When the MediaSource is successfully opened
 mediaSource.addEventListener('sourceopen', () => {
   // Create a new SourceBuffer
-  const sourceBuffer = mediaSource.addSourceBuffer('video/webm; codecs="vp8, opus"');
+  var sourceBuffer = mediaSource.addSourceBuffer('video/webm; codecs="vp8, opus"');
 
   // When a chunk of data is received from the WebSocket
   socket.onmessage = (event) => {
@@ -25,6 +25,9 @@ mediaSource.addEventListener('sourceopen', () => {
       sourceBuffer.appendBuffer(arrayU8);
     } else {
       console.error('MediaSource is not open.');
+      mediaSource = new MediaSource();
+      sourceBuffer = mediaSource.addSourceBuffer('video/webm; codecs="vp8, opus"');
+      sourceBuffer.appendBuffer(arrayU8);
     }
   };
 
