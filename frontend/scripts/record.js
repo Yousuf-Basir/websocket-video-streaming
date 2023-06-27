@@ -3,7 +3,11 @@
 // When WebSocket connection is established
 socket.onopen = () => {
     // Capture audio and video streams
-    navigator.mediaDevices.getUserMedia({ audio: true, video: true })
+    navigator.mediaDevices.getUserMedia({ audio: true, video: {
+        width: { ideal: 640 },
+        height: { ideal: 480 },
+        frameRate: { ideal: 15 }
+    } })
         .then(stream => {
             // Create MediaRecorder to encode the media streams
             const mediaRecorder = new MediaRecorder(stream, {
@@ -19,7 +23,7 @@ socket.onopen = () => {
             };
 
             // Start recording the media streams
-            mediaRecorder.start(10000);
+            mediaRecorder.start(2000);
         })
         .catch(error => {
             console.error('Error accessing media devices:', error);
