@@ -6,7 +6,6 @@ socket.onopen = () => {
     navigator.mediaDevices.getUserMedia({ audio: true, video: {
         width: { max: 200},
         height: { max: 200 },
-        frameRate: { ideal: 10, max: 10 }
     } })
         .then(stream => {
             // Create MediaRecorder to encode the media streams
@@ -24,7 +23,7 @@ socket.onopen = () => {
             };
 
             // Start recording the media streams
-            mediaRecorder.start(5000); // For every 7 seconds, call ondataavailable
+            mediaRecorder.start(2000); // For every 7 seconds, call ondataavailable
         })
         .catch(error => {
             console.error('Error accessing media devices:', error);
