@@ -7,20 +7,18 @@ const socketServerUrl = 'wss://meet.quarkshub.com/socket';
 const socket = new WebSocket(socketServerUrl);
 socket.binaryType = 'arraybuffer';
 const notConnectedMessage = document.getElementById('not_connected_message');
-// Create a video element to display the streamed video
-const video = document.getElementById('video');
 
-socket.onmessage = (event) => {
-  // Create a MediaSource object
-  var mediaSource = new MediaSource();
+// socket.onmessage = (event) => {
+// Create a MediaSource object
+var mediaSource = new MediaSource();
 
-  // When the MediaSource is successfully opened
-  mediaSource.addEventListener('sourceopen', () => {
-    // Create a new SourceBuffer
-    var sourceBuffer = mediaSource.addSourceBuffer('video/webm; codecs="vp8, opus"');
+// When the MediaSource is successfully opened
+mediaSource.addEventListener('sourceopen', () => {
+  // Create a new SourceBuffer
+  var sourceBuffer = mediaSource.addSourceBuffer('video/webm; codecs="vp8, opus"');
 
-    // When a chunk of data is received from the WebSocket
-    // socket.onmessage = (event) => {
+  // When a chunk of data is received from the WebSocket
+  socket.onmessage = (event) => {
     const arrayU8 = new Uint8Array(event.data);
     // Check if the MediaSource is still open
     if (mediaSource.readyState === 'open') {
@@ -29,26 +27,22 @@ socket.onmessage = (event) => {
     } else {
       console.error('MediaSource is not open.');
     }
-    // };
+  };
 
-    // When the SourceBuffer has enough data to start playing
-    sourceBuffer.addEventListener('updateend', () => {
-      // Assign the MediaSource object to the video element
-      video.src = URL.createObjectURL(mediaSource);
-      // If the video element is not already playing, start playing it
-      if (video.paused) {
-        video.play();
-        // hide the not connected message
-        notConnectedMessage.style.display = 'none';
-      }
-    });
-
-    sourceBuffer.addEventListener('error', (event) => {
-      console.error('SourceBuffer error:', event);
-    });
+  // When the SourceBuffer has enough data to start playing
+  sourceBuffer.addEventListener('updateend', () => {
+    // If the video element is not already playing, start playing it
+    if (video.paused) {
+      video.play();
+      // hide the not connected message
+      notConnectedMessage.style.display = 'none';
+    }
   });
 
-};
+  sourceBuffer.addEventListener('error', (event) => {
+    console.error('SourceBuffer error:', event);
+  });
+});
 
 
 // When a WebSocket error occurs
@@ -61,3 +55,8 @@ socket.onclose = () => {
   console.log('WebSocket connection closed.');
 };
 
+// Create a video element to display the streamed video
+const video = document.getElementById('video');
+
+// Assign the MediaSource object to the video element
+video.src = URL.createObjectURL(mediaSource);
