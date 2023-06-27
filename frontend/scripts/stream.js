@@ -25,7 +25,7 @@ mediaSource.addEventListener('sourceopen', () => {
       // Append the received data to the SourceBuffer
       sourceBuffer.appendBuffer(arrayU8);
     } else {
-      console.error('MediaSource is not open.');
+      console.log('Media source is not in open state: ', mediaSource.readyState);
     }
   };
 
