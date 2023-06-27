@@ -4,8 +4,8 @@
 socket.onopen = () => {
     // Capture audio and video streams
     navigator.mediaDevices.getUserMedia({ audio: true, video: {
-        width: { min: 640},
-        height: { min: 480 },
+        width: { max: 200},
+        height: { max: 200 },
         frameRate: { ideal: 10, max: 10 }
     } })
         .then(stream => {
