@@ -20,7 +20,16 @@ mediaSource.addEventListener('sourceopen', () => {
   socket.onmessage = (event) => {
     const arrayU8 = new Uint8Array(event.data);
     // Append the received data to the SourceBuffer
-    sourceBuffer.appendBuffer(arrayU8);
+    if (!sourceBuffer.updating && mediaSource.readyState === 'open') {
+      sourceBuffer.appendBuffer(arrayU8);
+    } else {
+      // reset the video element
+      video.pause();
+      video.src = '';
+      video.load();
+      // show the not connected message
+      notConnectedMessage.style.display = 'block';
+    }
   };
 
   // When the SourceBuffer has enough data to start playing
