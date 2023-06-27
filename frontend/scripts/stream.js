@@ -19,16 +19,12 @@ mediaSource.addEventListener('sourceopen', () => {
   // When a chunk of data is received from the WebSocket
   socket.onmessage = (event) => {
     const arrayU8 = new Uint8Array(event.data);
-    // Append the received data to the SourceBuffer
-    if (!sourceBuffer.updating && mediaSource.readyState === 'open') {
+    // Check if the MediaSource is still open
+    if (mediaSource.readyState === 'open') {
+      // Append the received data to the SourceBuffer
       sourceBuffer.appendBuffer(arrayU8);
     } else {
-      // reset the video element
-      video.pause();
-      video.src = '';
-      video.load();
-      // show the not connected message
-      notConnectedMessage.style.display = 'block';
+      console.error('MediaSource is not open.');
     }
   };
 
@@ -40,6 +36,10 @@ mediaSource.addEventListener('sourceopen', () => {
       // hide the not connected message
       notConnectedMessage.style.display = 'none';
     }
+  });
+
+  sourceBuffer.addEventListener('error', (event) => {
+    console.error('SourceBuffer error:', event);
   });
 });
 
